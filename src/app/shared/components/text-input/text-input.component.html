@@ -1,0 +1,8 @@
+<input
+  [type]="type"
+  [placeholder]="placeholder"
+  class="field"
+  [ngModel]="value"
+  (ngModelChange)="handleChange($event)"
+  (blur)="handleTouch()"
+>

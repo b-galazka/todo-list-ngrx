@@ -1,0 +1,13 @@
+@import 'variables';
+
+.loader {
+  width: 70px;
+  height: 70px;
+  display: block;
+  border-radius: 50%;
+  border-top: 3px solid $white;
+  animation-name: spin-around;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}

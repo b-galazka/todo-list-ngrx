@@ -1,0 +1,11 @@
+@import 'variables';
+
+.header {
+  margin-bottom: 5px;
+  padding: 0 8px;
+}
+
+.validation-error {
+  color: $pink;
+  text-align: right;
+}

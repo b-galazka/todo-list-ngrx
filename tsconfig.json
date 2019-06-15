@@ -15,6 +15,7 @@
     "typeRoots": [
       "node_modules/@types"
     ],
+    "noImplicitAny": true,
     "lib": [
       "es2018",
       "dom"

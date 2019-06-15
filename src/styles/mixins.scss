@@ -1,0 +1,20 @@
+@mixin placeholder {
+  ::-webkit-input-placeholder {
+    @content;
+  }
+  ::-moz-placeholder {
+    @content;
+  }
+  :-ms-input-placeholder {
+    @content;
+  }
+  :-moz-placeholder {
+    @content;
+  }
+}
+
+@mixin breakpoint($screenWidth) {
+  @media screen and (min-width: $screenWidth) {
+    @content;
+  }
+}
