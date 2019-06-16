@@ -4,9 +4,17 @@ import { of } from 'rxjs';
 import { switchMap, map, catchError, first } from 'rxjs/operators';
 
 import { TasksService } from './tasks.service';
-import { tasksFetchingStart, tasksFetchingSuccess, tasksFetchingFailure } from './tasks.actions';
 import { TasksFacade } from './tasks.facade';
 import { RequestStatus } from 'src/app/shared/models/server-request.model';
+
+import {
+  tasksFetchingStart,
+  tasksFetchingSuccess,
+  tasksFetchingFailure,
+  taskCreationStart,
+  taskCreationSuccess,
+  taskCreationFailure
+} from './tasks.actions';
 
 @Injectable()
 export class TasksEffects {
@@ -28,5 +36,13 @@ export class TasksEffects {
       allTasksFetched: !res.pagination || !res.pagination.next
     })),
     catchError(() => of(tasksFetchingFailure({ fetchingStatus: RequestStatus.Error })))
+  );
+
+  @Effect()
+  public readonly taskCreationStart = this.actions$.pipe(
+    ofType(taskCreationStart),
+    switchMap(({ task }) => this.tasksService.createTask(task)),
+    map(task => taskCreationSuccess({ task })),
+    catchError(() => of(taskCreationFailure({ creationStatus: RequestStatus.Error })))
   );
 }

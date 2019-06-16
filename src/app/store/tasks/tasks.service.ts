@@ -25,17 +25,17 @@ export class TasksService {
       .get<IServerResponse<Array<ITask>>>(`${environment.apiUrl}/tasks`, { params });
   }
 
-  public deleteTask(taskId: number): Observable<ITask> {
-
-    return this.httpClient
-      .delete<IServerResponse<ITask>>(`${environment.apiUrl}/tasks/${taskId}`)
-      .pipe(pluck('data'));
-  }
-
   public createTask(data: ITaskCreationData): Observable<ITask> {
 
     return this.httpClient
       .post<IServerResponse<ITask>>(`${environment.apiUrl}/tasks`, { task: data })
+      .pipe(pluck('data'));
+  }
+
+  public deleteTask(taskId: number): Observable<ITask> {
+
+    return this.httpClient
+      .delete<IServerResponse<ITask>>(`${environment.apiUrl}/tasks/${taskId}`)
       .pipe(pluck('data'));
   }
 }
