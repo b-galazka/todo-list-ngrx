@@ -1,5 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+
 import { TasksFacade } from 'src/app/store/tasks/tasks.facade';
+import { ITask } from 'src/app/shared/models/tasks/task.model';
 
 @Component({
   selector: 'app-tasks',
@@ -13,5 +15,9 @@ export class TasksComponent implements OnInit {
 
   public ngOnInit(): void {
     this.tasksFacade.fetchTasks();
+  }
+
+  public trackTasks(task: ITask): number {
+    return task.id;
   }
 }

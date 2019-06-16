@@ -5,7 +5,7 @@
     deletionStatuses: tasksFacade.tasksDeletionStatuses$ | async
   } as state"
 >
-  <div *ngFor="let task of state.tasks" class="row task-row">
+  <div *ngFor="let task of state.tasks; trackBy: trackTasks" class="row task-row">
     <div class="col">
       <app-task
         [task]="task"
