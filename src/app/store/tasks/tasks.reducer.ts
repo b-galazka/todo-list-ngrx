@@ -62,7 +62,7 @@ export const tasksReducer = createReducer(initialState,
 
   on(tasksActions.taskDeletionSuccess, (state, { taskId }) => ({
     ...adapter.removeOne(taskId, state),
-    deletionStatus: { ...state.deletionStatuses, [taskId]: RequestStatus.Success }
+    deletionStatuses: { ...state.deletionStatuses, [taskId]: RequestStatus.Success }
   })),
 
   on(tasksActions.taskDeletionFailure, (state, { taskId, deletionStatus }) => ({
