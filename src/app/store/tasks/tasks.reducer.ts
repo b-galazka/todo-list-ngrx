@@ -9,14 +9,18 @@ export interface ITasksState extends EntityState<ITask> {
   fetchingStatus: RequestStatus;
   creationStatus: RequestStatus;
   deletionStatuses: Record<number, RequestStatus>;
+  allTasksFetched: boolean;
 }
 
-export const adapter = createEntityAdapter<ITask>();
+export const adapter = createEntityAdapter<ITask>({
+  sortComparer: (a: ITask, b: ITask) => b.id - a.id
+});
 
 const initialState: ITasksState = adapter.getInitialState({
   fetchingStatus: RequestStatus.Idle,
   creationStatus: RequestStatus.Idle,
-  deletionStatuses: {}
+  deletionStatuses: {},
+  allTasksFetched: false
 });
 
 export const tasksReducer = createReducer(initialState,
@@ -25,9 +29,10 @@ export const tasksReducer = createReducer(initialState,
     fetchingStatus: RequestStatus.Pending
   })),
 
-  on(tasksActions.tasksFetchingSuccess, (state, { tasks }) => ({
+  on(tasksActions.tasksFetchingSuccess, (state, { tasks, allTasksFetched }) => ({
     ...adapter.addMany(tasks, state),
-    fetchingStatus: RequestStatus.Success
+    fetchingStatus: RequestStatus.Success,
+    allTasksFetched
   })),
 
   on(tasksActions.tasksFetchingFailure, (state, { fetchingStatus }) => ({

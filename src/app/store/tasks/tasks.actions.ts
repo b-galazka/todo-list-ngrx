@@ -7,7 +7,7 @@ export const tasksFetchingStart = createAction('[Tasks] Fetching start');
 
 export const tasksFetchingSuccess = createAction(
   '[Tasks] Fetching success',
-  props<{ tasks: Array<ITask> }>()
+  props<{ tasks: Array<ITask>, allTasksFetched: boolean }>()
 );
 
 export const tasksFetchingFailure = createAction(

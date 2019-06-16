@@ -7,7 +7,9 @@ import {
   getTasks,
   getTasksFetchingStatus,
   getTaskCreationStatus,
-  getTasksDeletionStatuses
+  getTasksDeletionStatuses,
+  getAllTasksFetchedStatus,
+  getTasksAmount
 } from './tasks.selectors';
 
 import { tasksFetchingStart, taskCreationStart, taskDeletionStart } from './tasks.actions';
@@ -21,6 +23,8 @@ export class TasksFacade {
   public readonly tasksFetchingStatus$ = this.store.pipe(select(getTasksFetchingStatus));
   public readonly taskCreationStatus$ = this.store.pipe(select(getTaskCreationStatus));
   public readonly tasksDeletionStatuses$ = this.store.pipe(select(getTasksDeletionStatuses));
+  public readonly allTasksFetchedStatus$ = this.store.pipe(select(getAllTasksFetchedStatus));
+  public readonly tasksAmount$ = this.store.pipe(select(getTasksAmount));
 
   public constructor(private readonly store: Store<IAppState>) { }
 
