@@ -1,0 +1,62 @@
+@import 'variables';
+
+:host {
+  display: block;
+  border-radius: 8px;
+  border: 1px solid $white;
+  padding: 8px 16px;
+}
+
+.task-name {
+  font-size: 1.5rem;
+}
+
+.task-creation-date {
+  font-size: 0.8rem;
+  margin-bottom: 10px;
+}
+
+.delete-btn {
+  width: 50px;
+  height: 50px;
+  background-color: transparent;
+  border: none;
+  position: relative;
+  border-radius: 50%;
+  transition-property: background-color, opacity;
+  transition-duration: 300ms;
+
+  &:hover {
+    background-color: $pink;
+  }
+
+  &:disabled {
+    opacity: 0.75;
+    background-color: $pink;
+  }
+
+  &:not(:disabled) {
+    cursor: pointer;
+  }
+
+  &::before, &::after {
+    content: '';
+    display: block;
+    width: 80%;
+    height: 6px;
+    background-color: $white;
+    border-radius: 3px;
+    position: absolute;
+    top: calc(50% - 3px);
+    left: 10%;
+    transform-origin: center;
+  }
+
+  &::before {
+    transform: rotate(45deg);
+  }
+
+  &::after {
+    transform: rotate(-45deg);
+  }
+}

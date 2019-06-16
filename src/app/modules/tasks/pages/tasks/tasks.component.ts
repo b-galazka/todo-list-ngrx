@@ -9,7 +9,7 @@ import { TasksFacade } from 'src/app/store/tasks/tasks.facade';
 })
 export class TasksComponent implements OnInit {
 
-  public constructor(private readonly tasksFacade: TasksFacade) { }
+  public constructor(public readonly tasksFacade: TasksFacade) { }
 
   public ngOnInit(): void {
     this.tasksFacade.fetchTasks();

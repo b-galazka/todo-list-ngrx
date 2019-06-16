@@ -1,3 +1,17 @@
-<p>
-  tasks works!
-</p>
+<ng-container
+  *ngIf="{
+    fetchingStatus: tasksFacade.tasksFetchingStatus$ | async,
+    tasks: tasksFacade.tasks$ | async,
+    deletionStatuses: tasksFacade.tasksDeletionStatuses$ | async
+  } as state"
+>
+  <div *ngFor="let task of state.tasks" class="row task-row">
+    <div class="col">
+      <app-task
+        [task]="task"
+        [deletionStatus]="state.deletionStatuses[task.id]"
+        (delete)="tasksFacade.deleteTask($event)"
+      ></app-task>
+    </div>
+  </div>
+</ng-container>
