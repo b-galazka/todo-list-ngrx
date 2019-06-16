@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { of, Observable } from 'rxjs';
+import { of } from 'rxjs';
 import { switchMap, map, catchError, first, mergeMap } from 'rxjs/operators';
+import { HttpErrorResponse, HttpResponseBase } from '@angular/common/http';
 
 import { TasksService } from './tasks.service';
 import { TasksFacade } from './tasks.facade';
@@ -18,8 +19,6 @@ import {
   taskDeletionSuccess,
   taskDeletionFailure
 } from './tasks.actions';
-import { HttpErrorResponse } from '@angular/common/http';
-import { TypedAction } from '@ngrx/store/src/models';
 
 @Injectable()
 export class TasksEffects {
@@ -36,11 +35,15 @@ export class TasksEffects {
     switchMap(() => this.tasksFacade.tasksAmount$),
     first(),
     switchMap(tasksAmount => this.tasksService.getTasks(tasksAmount, 50)),
+
     map(res => tasksFetchingSuccess({
       tasks: res.data,
       allTasksFetched: !res.pagination || !res.pagination.next
     })),
-    catchError(() => of(tasksFetchingFailure({ fetchingStatus: RequestStatus.Error })))
+
+    catchError((err: HttpErrorResponse) =>
+      of(tasksFetchingFailure({ fetchingStatus: this.determineRequestStatus(err) }))
+    )
   );
 
   @Effect()
@@ -48,27 +51,32 @@ export class TasksEffects {
     ofType(taskCreationStart),
     switchMap(({ task }) => this.tasksService.createTask(task)),
     map(task => taskCreationSuccess({ task })),
-    catchError(() => of(taskCreationFailure({ creationStatus: RequestStatus.Error })))
+
+    catchError((err: HttpErrorResponse) =>
+      of(taskCreationFailure({ creationStatus: this.determineRequestStatus(err) }))
+    )
   );
 
   @Effect()
   public readonly taskDeletionStart = this.actions$.pipe(
     ofType(taskDeletionStart),
-    mergeMap(
-      ({ taskId }) => this.tasksService.deleteTask(taskId).pipe(
-        map(task => taskDeletionSuccess({ taskId: task.id })),
-        catchError((err: HttpErrorResponse) => this.handleTaskDeletionFailure(err, taskId)
-      ))
-    )
+
+    mergeMap(({ taskId }) => this.tasksService.deleteTask(taskId).pipe(
+      map(task => taskDeletionSuccess({ taskId: task.id })),
+
+      catchError((err: HttpErrorResponse) =>
+        of(taskDeletionFailure({ taskId, deletionStatus: this.determineRequestStatus(err) }))
+      )
+    ))
   );
 
-  private handleTaskDeletionFailure(
-    res: HttpErrorResponse,
-    taskId: number
-  ): Observable<TypedAction<any>> {
+  private determineRequestStatus(res: HttpResponseBase): RequestStatus {
+    switch (res.status) {
+      case 404:
+        return RequestStatus.NotFound;
 
-    const deletionStatus = res.status === 404 ? RequestStatus.NotFound : RequestStatus.Error;
-
-    return of(taskDeletionFailure({ taskId, deletionStatus }));
+      default:
+        return RequestStatus.Error;
+    }
   }
 }
