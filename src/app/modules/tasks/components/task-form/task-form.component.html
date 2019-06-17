@@ -1,0 +1,32 @@
+<form [formGroup]="form" (ngSubmit)="submitForm()">
+  <div class="row form-field-row">
+    <div class="col">
+      <app-form-field label="Name">
+        <app-text-input formControlName="name" placeholder="Go shopping"></app-text-input>
+      </app-form-field>
+    </div>
+  </div>
+
+  <div class="row form-field-row">
+    <div class="col">
+      <app-form-field label="Description">
+        <app-textarea
+          formControlName="description"
+          placeholder="Buy some milk"
+          [rows]="5"
+        ></app-textarea>
+      </app-form-field>
+    </div>
+  </div>
+
+  <div class="row justify-content-end">
+    <div class="col-sm-auto ">
+      <button
+        class="button"
+        [disabled]="requestStatus === RequestStatus.Pending"
+      >
+        Create new task
+      </button>
+    </div>
+  </div>
+</form>

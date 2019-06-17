@@ -5,7 +5,8 @@
     "types": []
   },
   "include": [
-    "src/**/*.ts"
+    "src/**/*.ts",
+    "node_modules/watch-property-decorator/src"
   ],
   "exclude": [
     "src/test.ts",

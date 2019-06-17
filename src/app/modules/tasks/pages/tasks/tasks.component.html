@@ -3,9 +3,16 @@
     fetchingStatus: tasksFacade.tasksFetchingStatus$ | async,
     tasks: tasksFacade.tasks$ | async,
     deletionStatuses: tasksFacade.tasksDeletionStatuses$ | async,
-    allTasksFetched: tasksFacade.allTasksFetchedStatus$ | async
+    allTasksFetched: tasksFacade.allTasksFetchedStatus$ | async,
+    creationStatus: tasksFacade.taskCreationStatus$ | async
   } as state"
 >
+  <app-task-form
+    class="task-form"
+    [requestStatus]="state.creationStatus"
+    (submitted)="tasksFacade.createTask($event)"
+  ></app-task-form>
+
   <div *ngFor="let task of state.tasks; trackBy: trackTasks" class="row task-row">
     <div class="col">
       <app-task
@@ -26,11 +33,11 @@
     </div>
 
     <div *ngSwitchCase="RequestStatus.Error" class="col-auto">
-      <p  class="error-message">Something went wrong</p>
+      <p class="error-message">Something went wrong</p>
     </div>
 
     <ng-container *ngSwitchDefault>
-      <div *ngIf="!state.allTasksFetched" class="col-auto">
+      <div *ngIf="!state.allTasksFetched" class="col-sm-auto">
         <button class="button" (click)="tasksFacade.fetchTasks()">Load more</button>
       </div>
     </ng-container>
