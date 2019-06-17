@@ -58,7 +58,6 @@ export class TaskFormComponent implements OnInit {
   @Watch<TaskFormComponent>('requestStatus', { immediate: false })
   public handleRequestStatusChange(): void {
     if (this.requestStatus === RequestStatus.Success) {
-      // TODO: doesn't cause values in inputs disapper
       this.form.reset();
     }
   }

@@ -5,6 +5,8 @@ import {
   AbstractReactiveFormFieldComponent
 } from '../shared/abstracts/abstract-reactive-form-field.component';
 
+// TODO: OnPush?
+
 @Component({
   selector: 'app-textarea',
   templateUrl: './textarea.component.html',

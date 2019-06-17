@@ -8,8 +8,6 @@ import { ContentLayoutComponent } from './layouts/content-layout/content-layout.
 import { FormFieldComponent } from './components/form-field/form-field.component';
 import { TextareaComponent } from './components/textarea/textarea.component';
 
-// TODO: enable in all shared component ChangeDetectionStrategy.OnPush
-
 @NgModule({
   declarations: [
     ContentLayoutComponent,

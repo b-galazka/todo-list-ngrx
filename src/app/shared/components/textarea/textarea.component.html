@@ -2,7 +2,7 @@
   [placeholder]="placeholder"
   [rows]="rows"
   class="field"
-  [ngModel]="value"
+  [(ngModel)]="value"
   (ngModelChange)="handleChange($event)"
   (blur)="handleTouch()"
 ></textarea>
