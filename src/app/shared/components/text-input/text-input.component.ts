@@ -1,16 +1,15 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { NgControl } from '@angular/forms';
 
 import {
   AbstractReactiveFormFieldComponent
 } from '../shared/abstracts/abstract-reactive-form-field.component';
 
-// TODO: OnPush?
-
 @Component({
   selector: 'app-text-input',
   templateUrl: './text-input.component.html',
-  styleUrls: ['../shared/styles/form-field.scss', './text-input.component.scss']
+  styleUrls: ['../shared/styles/form-field.scss', './text-input.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TextInputComponent extends AbstractReactiveFormFieldComponent {
   @Input() public type = 'text';

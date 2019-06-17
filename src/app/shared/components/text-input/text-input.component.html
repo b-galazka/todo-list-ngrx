@@ -2,7 +2,7 @@
   [type]="type"
   [placeholder]="placeholder"
   class="field"
-  [(ngModel)]="value"
-  (ngModelChange)="handleChange($event)"
+  [ngModel]="value$ | async"
+  (ngModelChange)="handleFieldValueChange($event)"
   (blur)="handleTouch()"
 >

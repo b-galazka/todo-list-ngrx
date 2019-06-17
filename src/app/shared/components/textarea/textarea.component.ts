@@ -1,16 +1,15 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { NgControl } from '@angular/forms';
 
 import {
   AbstractReactiveFormFieldComponent
 } from '../shared/abstracts/abstract-reactive-form-field.component';
 
-// TODO: OnPush?
-
 @Component({
   selector: 'app-textarea',
   templateUrl: './textarea.component.html',
-  styleUrls: ['../shared/styles/form-field.scss', './textarea.component.scss']
+  styleUrls: ['../shared/styles/form-field.scss', './textarea.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TextareaComponent extends AbstractReactiveFormFieldComponent {
   @Input() public rows = 10;
