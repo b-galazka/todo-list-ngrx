@@ -32,9 +32,8 @@ export class TasksEffects {
   @Effect()
   public readonly tasksFetchingStart = this.actions$.pipe(
     ofType(tasksFetchingStart),
-    switchMap(() => this.tasksFacade.tasksAmount$),
-    first(),
-    switchMap(tasksAmount => this.tasksService.getTasks(tasksAmount, 50)),
+    switchMap(() => this.tasksFacade.tasksAmount$.pipe(first())),
+    switchMap(tasksAmount => this.tasksService.getTasks(tasksAmount, 25)),
 
     map(res => tasksFetchingSuccess({
       tasks: res.data,

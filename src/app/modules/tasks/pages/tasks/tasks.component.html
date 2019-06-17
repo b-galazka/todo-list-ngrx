@@ -2,7 +2,8 @@
   *ngIf="{
     fetchingStatus: tasksFacade.tasksFetchingStatus$ | async,
     tasks: tasksFacade.tasks$ | async,
-    deletionStatuses: tasksFacade.tasksDeletionStatuses$ | async
+    deletionStatuses: tasksFacade.tasksDeletionStatuses$ | async,
+    allTasksFetched: tasksFacade.allTasksFetchedStatus$ | async
   } as state"
 >
   <div *ngFor="let task of state.tasks; trackBy: trackTasks" class="row task-row">
@@ -13,5 +14,25 @@
         (delete)="tasksFacade.deleteTask($event)"
       ></app-task>
     </div>
+  </div>
+
+  <div
+    *ngIf="state.fetchingStatus !== RequestStatus.Success || !state.allTasksFetched"
+    [ngSwitch]="state.fetchingStatus"
+    class="row justify-content-center"
+  >
+    <div *ngSwitchCase="RequestStatus.Pending" class="col-auto loader-wrapper">
+      <div class="loader"></div>
+    </div>
+
+    <div *ngSwitchCase="RequestStatus.Error" class="col-auto">
+      <p  class="error-message">Something went wrong</p>
+    </div>
+
+    <ng-container *ngSwitchDefault>
+      <div *ngIf="!state.allTasksFetched" class="col-auto">
+        <button class="button" (click)="tasksFacade.fetchTasks()">Load more</button>
+      </div>
+    </ng-container>
   </div>
 </ng-container>

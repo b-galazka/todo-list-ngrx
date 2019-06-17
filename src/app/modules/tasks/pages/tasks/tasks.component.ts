@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import { TasksFacade } from 'src/app/store/tasks/tasks.facade';
 import { ITask } from 'src/app/shared/models/tasks/task.model';
+import { RequestStatus } from 'src/app/shared/models/server-request.model';
 
 @Component({
   selector: 'app-tasks',
@@ -10,6 +11,7 @@ import { ITask } from 'src/app/shared/models/tasks/task.model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TasksComponent implements OnInit {
+  public readonly RequestStatus = RequestStatus;
 
   public constructor(public readonly tasksFacade: TasksFacade) { }
 
