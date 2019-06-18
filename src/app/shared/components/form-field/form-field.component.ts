@@ -1,8 +1,6 @@
 import { Component, Input, ContentChild } from '@angular/core';
 import { NgControl } from '@angular/forms';
 
-// TODO: OnPush?
-
 @Component({
   selector: 'app-form-field',
   templateUrl: './form-field.component.html',

@@ -1,14 +1,15 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import { TasksFacade } from 'src/app/store/tasks/tasks.facade';
-import { ITask } from 'src/app/shared/models/tasks/task.model';
 import { RequestStatus } from 'src/app/shared/models/server-request.model';
+import { listSlideInOut } from './tasks.animations';
 
 @Component({
   selector: 'app-tasks',
   templateUrl: './tasks.component.html',
   styleUrls: ['./tasks.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [listSlideInOut]
 })
 export class TasksComponent implements OnInit {
   public readonly RequestStatus = RequestStatus;
@@ -17,9 +18,5 @@ export class TasksComponent implements OnInit {
 
   public ngOnInit(): void {
     this.tasksFacade.fetchTasks();
-  }
-
-  public trackTasks(task: ITask): number {
-    return task.id;
   }
 }

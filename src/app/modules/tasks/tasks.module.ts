@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { TasksComponent } from './pages/tasks/tasks.component';
 import { TasksRoutingModule } from './tasks-routing.module';
@@ -11,6 +12,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
   declarations: [TasksComponent, TaskComponent, TaskFormComponent],
   imports: [
     CommonModule,
+    BrowserAnimationsModule,
     TasksRoutingModule,
     SharedModule
   ]

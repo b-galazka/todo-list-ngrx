@@ -13,13 +13,16 @@
     (submitted)="tasksFacade.createTask($event)"
   ></app-task-form>
 
-  <div *ngFor="let task of state.tasks; trackBy: trackTasks" class="row task-row">
-    <div class="col">
-      <app-task
-        [task]="task"
-        [deletionStatus]="state.deletionStatuses[task.id]"
-        (delete)="tasksFacade.deleteTask($event)"
-      ></app-task>
+  <!-- https://github.com/angular/angular/issues/19727 -->
+  <div [@listSlideInOut]="state.tasks.length">
+    <div *ngFor="let task of state.tasks" class="row task-row">
+      <div class="col">
+        <app-task
+          [task]="task"
+          [deletionStatus]="state.deletionStatuses[task.id]"
+          (delete)="tasksFacade.deleteTask($event)"
+        ></app-task>
+      </div>
     </div>
   </div>
 
