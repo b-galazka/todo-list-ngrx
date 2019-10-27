@@ -9,25 +9,31 @@ import { TasksEffects } from './tasks/tasks.effects';
 import { environment } from 'src/environments/environment';
 import { TasksService } from './tasks/tasks.service';
 
+const prodImports = [
+  NgrxStoreModule.forRoot(reducer, {
+    runtimeChecks: {
+      strictStateImmutability: true,
+      strictActionImmutability: true,
+      strictStateSerializability: true,
+      strictActionSerializability: true,
+    }
+  }),
+
+  EffectsModule.forRoot([TasksEffects]),
+
+  HttpClientModule
+];
+
+const devImports = [
+  StoreDevtoolsModule.instrument({
+    maxAge: 25
+  })
+];
+
 @NgModule({
   imports: [
-    NgrxStoreModule.forRoot(reducer, {
-      runtimeChecks: {
-        strictStateImmutability: true,
-        strictActionImmutability: true,
-        strictStateSerializability: true,
-        strictActionSerializability: true,
-      }
-    }),
-
-    EffectsModule.forRoot([TasksEffects]),
-
-    StoreDevtoolsModule.instrument({
-      maxAge: 25,
-      logOnly: environment.production
-    }),
-
-    HttpClientModule
+    prodImports,
+    ...(environment.production ? [] : devImports)
   ],
   providers: [
     TasksService
