@@ -1,5 +1,5 @@
 import { EntityState, createEntityAdapter } from '@ngrx/entity';
-import { createReducer, on } from '@ngrx/store';
+import { createReducer, on, Action } from '@ngrx/store';
 
 import { ITask } from 'src/app/shared/models/tasks/task.model';
 import { RequestStatus } from 'src/app/shared/models/server-request.model';
@@ -23,7 +23,7 @@ const initialState: ITasksState = adapter.getInitialState({
   allTasksFetched: false
 });
 
-export const tasksReducer = createReducer(initialState,
+const reducer = createReducer(initialState,
   on(tasksActions.tasksFetchingStart, state => ({
     ...state,
     fetchingStatus: RequestStatus.Pending
@@ -70,3 +70,7 @@ export const tasksReducer = createReducer(initialState,
     deletionStatuses: { ...state.deletionStatuses, [taskId]: deletionStatus }
   }))
 );
+
+export function tasksReducer(state: ITasksState, action: Action): ITasksState {
+  return reducer(state, action);
+}
