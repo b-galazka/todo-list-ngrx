@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 
-import { IAppState } from '../store.reducer';
-
 import {
   getTasks,
   getTasksFetchingStatus,
@@ -13,7 +11,8 @@ import {
 } from './tasks.selectors';
 
 import { tasksFetchingStart, taskCreationStart, taskDeletionStart } from './tasks.actions';
-import { ITaskCreationData } from 'src/app/shared/models/tasks/task.model';
+import { ITaskCreationData } from 'src/app/modules/tasks/interfaces/task.interface';
+import { ITasksState } from './tasks.reducer';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +25,7 @@ export class TasksFacade {
   public readonly allTasksFetchedStatus$ = this.store.pipe(select(getAllTasksFetchedStatus));
   public readonly tasksAmount$ = this.store.pipe(select(getTasksAmount));
 
-  public constructor(private readonly store: Store<IAppState>) { }
+  public constructor(private readonly store: Store<ITasksState>) { }
 
   public fetchTasks(): void {
     this.store.dispatch(tasksFetchingStart());

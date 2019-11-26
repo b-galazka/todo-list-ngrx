@@ -4,9 +4,9 @@ import { of } from 'rxjs';
 import { switchMap, map, catchError, first, mergeMap } from 'rxjs/operators';
 import { HttpErrorResponse, HttpResponseBase } from '@angular/common/http';
 
-import { TasksService } from './tasks.service';
+import { TasksService } from '../services/tasks.service';
 import { TasksFacade } from './tasks.facade';
-import { RequestStatus } from 'src/app/shared/models/server-request.model';
+import { RequestStatus } from 'src/app/shared/enums/server-request.enum';
 
 import {
   tasksFetchingStart,

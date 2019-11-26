@@ -1,9 +1,10 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 import { ITasksState, adapter } from './tasks.reducer';
+import { tasksFeatureKey } from './tasks.consts';
 
 const { selectAll, selectTotal } = adapter.getSelectors();
-const featureSelector = createFeatureSelector<ITasksState>('tasks');
+const featureSelector = createFeatureSelector<ITasksState>(tasksFeatureKey);
 
 export const getTasks = createSelector(featureSelector, selectAll);
 export const getTasksAmount = createSelector(featureSelector, selectTotal);

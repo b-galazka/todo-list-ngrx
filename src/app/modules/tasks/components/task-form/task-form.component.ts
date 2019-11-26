@@ -10,8 +10,8 @@ import {
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Watch } from 'watch-property-decorator';
 
-import { ITaskCreationData } from 'src/app/shared/models/tasks/task.model';
-import { RequestStatus } from 'src/app/shared/models/server-request.model';
+import { ITaskCreationData } from 'src/app/modules/tasks/interfaces/task.interface';
+import { RequestStatus } from 'src/app/shared/enums/server-request.enum';
 
 @Component({
   selector: 'app-task-form',

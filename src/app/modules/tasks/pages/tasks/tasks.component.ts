@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
-import { TasksFacade } from 'src/app/store/tasks/tasks.facade';
-import { RequestStatus } from 'src/app/shared/models/server-request.model';
+import { TasksFacade } from 'src/app/modules/tasks/store/tasks.facade';
+import { RequestStatus } from 'src/app/shared/enums/server-request.enum';
 import { listSlideInOut } from './tasks.animations';
 
 @Component({

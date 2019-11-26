@@ -3,8 +3,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { pluck } from 'rxjs/operators';
 
-import { ITask, ITaskCreationData } from 'src/app/shared/models/tasks/task.model';
-import { IServerResponse } from 'src/app/shared/models/server-response.model';
+import { ITask, ITaskCreationData } from 'src/app/modules/tasks/interfaces/task.interface';
+import { IServerResponse } from 'src/app/shared/interfaces/server-response.interface';
 import { environment } from 'src/environments/environment';
 
 @Injectable()

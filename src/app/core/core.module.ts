@@ -1,16 +1,12 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { StoreModule as NgrxStoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { HttpClientModule } from '@angular/common/http';
 
-import { reducer } from './store.reducer';
-import { TasksEffects } from './tasks/tasks.effects';
 import { environment } from 'src/environments/environment';
-import { TasksService } from './tasks/tasks.service';
 
 const prodImports = [
-  NgrxStoreModule.forRoot(reducer, {
+  NgrxStoreModule.forRoot({}, {
     runtimeChecks: {
       strictStateImmutability: true,
       strictActionImmutability: true,
@@ -19,9 +15,7 @@ const prodImports = [
     }
   }),
 
-  EffectsModule.forRoot([TasksEffects]),
-
-  HttpClientModule
+  EffectsModule.forRoot([])
 ];
 
 const devImports = [
@@ -34,9 +28,14 @@ const devImports = [
   imports: [
     prodImports,
     ...(environment.production ? [] : devImports)
-  ],
-  providers: [
-    TasksService
   ]
 })
-export class StoreModule { }
+export class CoreModule {
+  public constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
+    if (parentModule) {
+      throw new Error(
+        'CoreModule has already been loaded. Import Core modules in the AppModule only.'
+      );
+    }
+  }
+}

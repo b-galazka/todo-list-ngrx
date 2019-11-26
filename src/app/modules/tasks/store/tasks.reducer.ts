@@ -1,8 +1,8 @@
 import { EntityState, createEntityAdapter } from '@ngrx/entity';
 import { createReducer, on, Action } from '@ngrx/store';
 
-import { ITask } from 'src/app/shared/models/tasks/task.model';
-import { RequestStatus } from 'src/app/shared/models/server-request.model';
+import { ITask } from 'src/app/modules/tasks/interfaces/task.interface';
+import { RequestStatus } from 'src/app/shared/enums/server-request.enum';
 import * as tasksActions from './tasks.actions';
 
 export interface ITasksState extends EntityState<ITask> {

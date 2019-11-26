@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 import { TextInputComponent } from './components/text-input/text-input.component';
 import { ContentLayoutComponent } from './layouts/content-layout/content-layout.component';
@@ -19,13 +20,15 @@ import { TextareaComponent } from './components/textarea/textarea.component';
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   exports: [
     ReactiveFormsModule,
     RouterModule,
-    TextInputComponent,
     FormsModule,
+    HttpClientModule,
+    TextInputComponent,
     FormFieldComponent,
     TextareaComponent
   ]

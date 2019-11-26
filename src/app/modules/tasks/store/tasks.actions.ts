@@ -1,7 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 
-import { ITaskCreationData, ITask } from 'src/app/shared/models/tasks/task.model';
-import { RequestStatus } from 'src/app/shared/models/server-request.model';
+import { ITaskCreationData, ITask } from 'src/app/modules/tasks/interfaces/task.interface';
+import { RequestStatus } from 'src/app/shared/enums/server-request.enum';
 
 export const tasksFetchingStart = createAction('[Tasks] Fetching start');
 
