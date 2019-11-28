@@ -1,33 +1,32 @@
+import { HttpErrorResponse, HttpResponseBase } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { switchMap, map, catchError, first, mergeMap } from 'rxjs/operators';
-import { HttpErrorResponse, HttpResponseBase } from '@angular/common/http';
+import { catchError, first, map, mergeMap, switchMap } from 'rxjs/operators';
 
+import { RequestStatus } from 'src/app/shared/enums/server-request.enum';
 import { TasksService } from '../services/tasks.service';
 import { TasksFacade } from './tasks.facade';
-import { RequestStatus } from 'src/app/shared/enums/server-request.enum';
 
 import {
-  tasksFetchingStart,
-  tasksFetchingSuccess,
-  tasksFetchingFailure,
+  taskCreationFailure,
   taskCreationStart,
   taskCreationSuccess,
-  taskCreationFailure,
+  taskDeletionFailure,
   taskDeletionStart,
   taskDeletionSuccess,
-  taskDeletionFailure
+  tasksFetchingFailure,
+  tasksFetchingStart,
+  tasksFetchingSuccess
 } from './tasks.actions';
 
 @Injectable()
 export class TasksEffects {
-
   public constructor(
     private readonly actions$: Actions,
     private readonly tasksService: TasksService,
     private readonly tasksFacade: TasksFacade
-  ) { }
+  ) {}
 
   @Effect()
   public readonly tasksFetchingStart = this.actions$.pipe(
@@ -35,10 +34,12 @@ export class TasksEffects {
     switchMap(() => this.tasksFacade.tasksAmount$.pipe(first())),
     switchMap(tasksAmount => this.tasksService.getTasks(tasksAmount, 25)),
 
-    map(res => tasksFetchingSuccess({
-      tasks: res.data,
-      allTasksFetched: !res.pagination || !res.pagination.next
-    })),
+    map(res =>
+      tasksFetchingSuccess({
+        tasks: res.data,
+        allTasksFetched: !res.pagination || !res.pagination.next
+      })
+    ),
 
     catchError((err: HttpErrorResponse) =>
       of(tasksFetchingFailure({ fetchingStatus: this.determineRequestStatus(err) }))
@@ -60,13 +61,15 @@ export class TasksEffects {
   public readonly taskDeletionStart = this.actions$.pipe(
     ofType(taskDeletionStart),
 
-    mergeMap(({ taskId }) => this.tasksService.deleteTask(taskId).pipe(
-      map(task => taskDeletionSuccess({ taskId: task.id })),
+    mergeMap(({ taskId }) =>
+      this.tasksService.deleteTask(taskId).pipe(
+        map(task => taskDeletionSuccess({ taskId: task.id })),
 
-      catchError((err: HttpErrorResponse) =>
-        of(taskDeletionFailure({ taskId, deletionStatus: this.determineRequestStatus(err) }))
+        catchError((err: HttpErrorResponse) =>
+          of(taskDeletionFailure({ taskId, deletionStatus: this.determineRequestStatus(err) }))
+        )
       )
-    ))
+    )
   );
 
   private determineRequestStatus(res: HttpResponseBase): RequestStatus {

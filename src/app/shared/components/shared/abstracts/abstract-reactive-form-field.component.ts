@@ -1,11 +1,10 @@
-import { NgControl, ControlValueAccessor } from '@angular/forms';
+import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 
 export type IReactiveFormFieldChangeHandler = (newValue: string) => void;
 export type IReactiveFormFieldTouchHandler = () => void;
 
 export abstract class AbstractReactiveFormFieldComponent implements ControlValueAccessor {
-
   public value$ = new BehaviorSubject<string>(null);
   public handleTouch: IReactiveFormFieldTouchHandler;
   private handleChange: IReactiveFormFieldChangeHandler;

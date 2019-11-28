@@ -1,10 +1,10 @@
 import {
-  Component,
-  OnInit,
   ChangeDetectionStrategy,
-  Output,
+  Component,
   EventEmitter,
-  Input
+  Input,
+  OnInit,
+  Output
 } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -27,7 +27,7 @@ export class TaskFormComponent implements OnInit {
 
   public form: FormGroup;
 
-  public constructor(private readonly formBuilder: FormBuilder) { }
+  public constructor(private readonly formBuilder: FormBuilder) {}
 
   public ngOnInit(): void {
     this.initForm();
@@ -47,7 +47,7 @@ export class TaskFormComponent implements OnInit {
   }
 
   private validateForm(): boolean {
-    Object.values(this.form.controls).forEach((formControl) => {
+    Object.values(this.form.controls).forEach(formControl => {
       formControl.updateValueAndValidity();
       formControl.markAsTouched();
     });

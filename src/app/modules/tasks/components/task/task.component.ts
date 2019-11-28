@@ -1,10 +1,4 @@
-import {
-  Component,
-  ChangeDetectionStrategy,
-  Input,
-  Output,
-  EventEmitter
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { ITask } from 'src/app/modules/tasks/interfaces/task.interface';
 import { RequestStatus } from 'src/app/shared/enums/server-request.enum';

@@ -14,7 +14,8 @@
   &:not(:disabled) {
     cursor: pointer;
 
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
       color: $blue;
       border-color: $blue;
       outline: 0;

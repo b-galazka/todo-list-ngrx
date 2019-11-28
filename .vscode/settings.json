@@ -1,0 +1,22 @@
+{
+  "editor.rulers": [
+      100
+  ],
+  "editor.tabCompletion": "on",
+  "editor.tabSize": 2,
+  "editor.trimAutoWhitespace": true,
+  "editor.formatOnSave": true,
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "typescript.tsdk": "./node_modules/typescript/lib",
+  "tslint.packageManager": "npm",
+  "tslint.autoFixOnSave": true,
+  "tslint.run": "onType",
+  "eslint.validate": [
+      "typescript",
+      {
+          "language": "typescript",
+          "autoFix": true
+      }
+  ]
+}

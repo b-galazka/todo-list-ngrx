@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'app-content-layout',
@@ -6,4 +6,4 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   styleUrls: ['./content-layout.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ContentLayoutComponent { }
+export class ContentLayoutComponent {}

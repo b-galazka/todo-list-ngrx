@@ -1,19 +1,14 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
-import {
-  ContentLayoutComponent
-} from 'src/app/shared/layouts/content-layout/content-layout.component';
+import { ContentLayoutComponent } from 'src/app/shared/layouts/content-layout/content-layout.component';
 import { TasksComponent } from './pages/tasks/tasks.component';
 
 const routes: Routes = [
-
   {
     path: '',
     component: ContentLayoutComponent,
-    children: [
-      { path: '', component: TasksComponent }
-    ]
+    children: [{ path: '', component: TasksComponent }]
   }
 ];
 
@@ -21,4 +16,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class TasksRoutingModule { }
+export class TasksRoutingModule {}

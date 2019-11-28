@@ -18,11 +18,15 @@ body {
   color: $white;
 }
 
-input, textarea, select, option {
+input,
+textarea,
+select,
+option {
   color: $very-dark-gray;
 }
 
-input, textarea {
+input,
+textarea {
   @include placeholder {
     color: $light-gray;
   }
@@ -34,7 +38,8 @@ a {
   transition-property: color;
   color: $white;
 
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     color: $blue;
   }
 }

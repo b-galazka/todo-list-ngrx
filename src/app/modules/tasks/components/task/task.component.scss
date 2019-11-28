@@ -39,7 +39,8 @@
     cursor: pointer;
   }
 
-  &::before, &::after {
+  &::before,
+  &::after {
     content: '';
     display: block;
     width: 80%;

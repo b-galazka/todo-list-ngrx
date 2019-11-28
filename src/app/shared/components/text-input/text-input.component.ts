@@ -1,9 +1,7 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { NgControl } from '@angular/forms';
 
-import {
-  AbstractReactiveFormFieldComponent
-} from '../shared/abstracts/abstract-reactive-form-field.component';
+import { AbstractReactiveFormFieldComponent } from '../shared/abstracts/abstract-reactive-form-field.component';
 
 @Component({
   selector: 'app-text-input',

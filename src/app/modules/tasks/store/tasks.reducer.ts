@@ -1,5 +1,5 @@
-import { EntityState, createEntityAdapter } from '@ngrx/entity';
-import { createReducer, on, Action } from '@ngrx/store';
+import { createEntityAdapter, EntityState } from '@ngrx/entity';
+import { Action, createReducer, on } from '@ngrx/store';
 
 import { ITask } from 'src/app/modules/tasks/interfaces/task.interface';
 import { RequestStatus } from 'src/app/shared/enums/server-request.enum';
@@ -23,7 +23,8 @@ const initialState: ITasksState = adapter.getInitialState({
   allTasksFetched: false
 });
 
-const reducer = createReducer(initialState,
+const reducer = createReducer(
+  initialState,
   on(tasksActions.tasksFetchingStart, state => ({
     ...state,
     fetchingStatus: RequestStatus.Pending

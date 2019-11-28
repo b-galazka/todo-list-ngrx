@@ -2,7 +2,11 @@
   <label class="col" data-test-id="label">{{ label }}</label>
 
   <div class="col">
-    <p *ngIf="ngControl.touched && ngControl.errors" class="validation-error" [ngSwitch]="errorType">
+    <p
+      *ngIf="ngControl.touched && ngControl.errors"
+      class="validation-error"
+      [ngSwitch]="errorType"
+    >
       <span *ngSwitchCase="'required'" data-test-id="required-error">Required</span>
 
       <span *ngSwitchCase="'maxlength'" data-test-id="max-length-error">

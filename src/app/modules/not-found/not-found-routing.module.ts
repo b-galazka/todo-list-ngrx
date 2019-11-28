@@ -1,19 +1,14 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+
+import { ContentLayoutComponent } from 'src/app/shared/layouts/content-layout/content-layout.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 
-import {
-  ContentLayoutComponent
-} from 'src/app/shared/layouts/content-layout/content-layout.component';
-
 const routes: Routes = [
-
   {
     path: '**',
     component: ContentLayoutComponent,
-    children: [
-      { path: '', component: NotFoundComponent }
-    ]
+    children: [{ path: '', component: NotFoundComponent }]
   }
 ];
 
@@ -21,4 +16,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class NotFoundRoutingModule { }
+export class NotFoundRoutingModule {}

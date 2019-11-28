@@ -1,4 +1,4 @@
-import { Component, Input, ContentChild } from '@angular/core';
+import { Component, ContentChild, Input } from '@angular/core';
 import { NgControl } from '@angular/forms';
 
 @Component({
@@ -7,7 +7,6 @@ import { NgControl } from '@angular/forms';
   styleUrls: ['./form-field.component.scss']
 })
 export class FormFieldComponent {
-
   @Input() public label = '';
   @ContentChild(NgControl, { static: true }) public ngControl: NgControl;
 
