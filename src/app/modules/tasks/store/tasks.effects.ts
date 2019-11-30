@@ -1,10 +1,10 @@
-import { HttpErrorResponse, HttpResponseBase } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, first, map, mergeMap, switchMap } from 'rxjs/operators';
 
-import { RequestStatus } from 'src/app/shared/enums/server-request.enum';
+import { determineResponseType } from 'src/app/shared/utils/http-client.utils';
 import { TasksService } from '../services/tasks.service';
 import { TasksFacade } from './tasks.facade';
 
@@ -32,17 +32,18 @@ export class TasksEffects {
   public readonly tasksFetchingStart = this.actions$.pipe(
     ofType(tasksFetchingStart),
     switchMap(() => this.tasksFacade.tasksAmount$.pipe(first())),
-    switchMap(tasksAmount => this.tasksService.getTasks(tasksAmount, 25)),
+    map(tasksAmount => this.tasksService.getNextPageNumber(tasksAmount)),
+    switchMap(page => this.tasksService.getTasks(page)),
 
     map(res =>
       tasksFetchingSuccess({
         tasks: res.data,
-        allTasksFetched: !res.pagination || !res.pagination.next
+        allTasksFetched: res.page === res.pageCount
       })
     ),
 
     catchError((err: HttpErrorResponse) =>
-      of(tasksFetchingFailure({ fetchingStatus: this.determineRequestStatus(err) }))
+      of(tasksFetchingFailure({ fetchingStatus: determineResponseType(err) }))
     )
   );
 
@@ -53,7 +54,7 @@ export class TasksEffects {
     map(task => taskCreationSuccess({ task })),
 
     catchError((err: HttpErrorResponse) =>
-      of(taskCreationFailure({ creationStatus: this.determineRequestStatus(err) }))
+      of(taskCreationFailure({ creationStatus: determineResponseType(err) }))
     )
   );
 
@@ -63,22 +64,12 @@ export class TasksEffects {
 
     mergeMap(({ taskId }) =>
       this.tasksService.deleteTask(taskId).pipe(
-        map(task => taskDeletionSuccess({ taskId: task.id })),
+        map(task => taskDeletionSuccess({ taskId })),
 
         catchError((err: HttpErrorResponse) =>
-          of(taskDeletionFailure({ taskId, deletionStatus: this.determineRequestStatus(err) }))
+          of(taskDeletionFailure({ taskId, deletionStatus: determineResponseType(err) }))
         )
       )
     )
   );
-
-  private determineRequestStatus(res: HttpResponseBase): RequestStatus {
-    switch (res.status) {
-      case 404:
-        return RequestStatus.NotFound;
-
-      default:
-        return RequestStatus.Error;
-    }
-  }
 }

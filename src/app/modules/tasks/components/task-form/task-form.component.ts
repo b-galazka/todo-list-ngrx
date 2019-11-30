@@ -11,7 +11,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Watch } from 'watch-property-decorator';
 
 import { ITaskCreationData } from 'src/app/modules/tasks/interfaces/task.interface';
-import { RequestStatus } from 'src/app/shared/enums/server-request.enum';
+import { RequestStatus } from 'src/app/shared/enums/request-status.enum';
 
 @Component({
   selector: 'app-task-form',

@@ -2,7 +2,7 @@ import { createEntityAdapter, EntityState } from '@ngrx/entity';
 import { Action, createReducer, on } from '@ngrx/store';
 
 import { ITask } from 'src/app/modules/tasks/interfaces/task.interface';
-import { RequestStatus } from 'src/app/shared/enums/server-request.enum';
+import { RequestStatus } from 'src/app/shared/enums/request-status.enum';
 import * as tasksActions from './tasks.actions';
 
 export interface ITasksState extends EntityState<ITask> {
@@ -13,7 +13,7 @@ export interface ITasksState extends EntityState<ITask> {
 }
 
 export const adapter = createEntityAdapter<ITask>({
-  sortComparer: (a: ITask, b: ITask) => b.id - a.id
+  sortComparer: (a: ITask, b: ITask) => Date.parse(b.createdAt) - Date.parse(a.createdAt)
 });
 
 const initialState: ITasksState = adapter.getInitialState({

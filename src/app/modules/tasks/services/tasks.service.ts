@@ -1,38 +1,42 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { pluck } from 'rxjs/operators';
 
+import { CONFIG } from 'src/app/core/injection-tokens/config.token';
 import { ITask, ITaskCreationData } from 'src/app/modules/tasks/interfaces/task.interface';
-import { IServerResponse } from 'src/app/shared/interfaces/server-response.interface';
-import { environment } from 'src/environments/environment';
+import { IServerPaginationResponse } from 'src/app/shared/interfaces/server-pagination-response.interface';
+import { convertObjectToHttpParams } from 'src/app/shared/utils/http-client.utils';
+import { config } from 'src/config';
 
 @Injectable()
 export class TasksService {
-  public constructor(private readonly httpClient: HttpClient) {}
+  public constructor(
+    @Inject(CONFIG) private readonly appConfig: typeof config,
+    private readonly httpClient: HttpClient
+  ) {}
 
-  public getTasks(offset: number, limit: number): Observable<IServerResponse<Array<ITask>>> {
-    const paramsObj = {
-      offset: String(offset),
-      limit: String(limit)
-    };
-
-    const params = new HttpParams({ fromObject: paramsObj });
-
-    return this.httpClient.get<IServerResponse<Array<ITask>>>(`${environment.apiUrl}/tasks`, {
-      params
+  public getTasks(page: number): Observable<IServerPaginationResponse<Array<ITask>>> {
+    const params = convertObjectToHttpParams({
+      limit: this.appConfig.recordsPerPage,
+      page,
+      sort: 'updatedAt,DESC'
     });
+
+    return this.httpClient.get<IServerPaginationResponse<Array<ITask>>>(
+      `${this.appConfig.env.apiUrl}/tasks`,
+      { params }
+    );
+  }
+
+  public getNextPageNumber(tasksAmount: number): number {
+    return Math.ceil(tasksAmount / this.appConfig.recordsPerPage) + 1;
   }
 
   public createTask(data: ITaskCreationData): Observable<ITask> {
-    return this.httpClient
-      .post<IServerResponse<ITask>>(`${environment.apiUrl}/tasks`, { task: data })
-      .pipe(pluck('data'));
+    return this.httpClient.post<ITask>(`${this.appConfig.env.apiUrl}/tasks`, data);
   }
 
-  public deleteTask(taskId: number): Observable<ITask> {
-    return this.httpClient
-      .delete<IServerResponse<ITask>>(`${environment.apiUrl}/tasks/${taskId}`)
-      .pipe(pluck('data'));
+  public deleteTask(taskId: string): Observable<void> {
+    return this.httpClient.delete<void>(`${this.appConfig.env.apiUrl}/tasks/${taskId}`);
   }
 }

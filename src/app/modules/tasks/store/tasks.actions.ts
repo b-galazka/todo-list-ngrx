@@ -1,7 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 
 import { ITask, ITaskCreationData } from 'src/app/modules/tasks/interfaces/task.interface';
-import { RequestStatus } from 'src/app/shared/enums/server-request.enum';
+import { RequestStatus } from 'src/app/shared/enums/request-status.enum';
 
 export const tasksFetchingStart = createAction('[Tasks] Fetching start');
 
@@ -32,15 +32,15 @@ export const taskCreationFailure = createAction(
 
 export const taskDeletionStart = createAction(
   '[Tasks] Deletion start',
-  props<{ taskId: number }>()
+  props<{ taskId: string }>()
 );
 
 export const taskDeletionSuccess = createAction(
   '[Tasks] Deletion success',
-  props<{ taskId: number }>()
+  props<{ taskId: string }>()
 );
 
 export const taskDeletionFailure = createAction(
   '[Tasks] Deletion failure',
-  props<{ taskId: number; deletionStatus: RequestStatus }>()
+  props<{ taskId: string; deletionStatus: RequestStatus }>()
 );

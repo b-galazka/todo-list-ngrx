@@ -3,7 +3,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule as NgrxStoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
-import { environment } from 'src/environments/environment';
+import { config } from 'src/config';
+import { CONFIG } from './injection-tokens/config.token';
 
 const prodImports = [
   NgrxStoreModule.forRoot(
@@ -28,7 +29,8 @@ const devImports = [
 ];
 
 @NgModule({
-  imports: [prodImports, ...(environment.production ? [] : devImports)]
+  imports: [prodImports, ...(config.env.production ? [] : devImports)],
+  providers: [{ provide: CONFIG, useValue: config }]
 })
 export class CoreModule {
   public constructor(@Optional() @SkipSelf() parentModule: CoreModule) {

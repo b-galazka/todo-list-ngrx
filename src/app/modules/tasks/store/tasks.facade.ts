@@ -14,9 +14,7 @@ import { ITaskCreationData } from 'src/app/modules/tasks/interfaces/task.interfa
 import { taskCreationStart, taskDeletionStart, tasksFetchingStart } from './tasks.actions';
 import { ITasksState } from './tasks.reducer';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class TasksFacade {
   public readonly tasks$ = this.store.pipe(select(getTasks));
   public readonly tasksFetchingStatus$ = this.store.pipe(select(getTasksFetchingStatus));
@@ -35,7 +33,7 @@ export class TasksFacade {
     this.store.dispatch(taskCreationStart({ task }));
   }
 
-  public deleteTask(taskId: number): void {
+  public deleteTask(taskId: string): void {
     this.store.dispatch(taskDeletionStart({ taskId }));
   }
 }
