@@ -1,13 +1,13 @@
 <div class="row justify-content-center align-content-center wrapper">
   <div class="row col-12 justify-content-center">
-    <h1 class="error-code">404</h1>
+    <h1 class="error-code">{{ 'notFound.404' | transloco }}</h1>
   </div>
 
   <div class="row col-12 justify-content-center">
-    <p class="error-desc">This page does not exist.</p>
+    <p class="error-desc">{{ 'notFound.pageDoesNotExist' | transloco }}</p>
   </div>
 
   <div class="row col-12 justify-content-center">
-    <a class="button" routerLink="/">Return to homepage</a>
+    <a class="button" routerLink="/">{{ 'notFound.returnToHomepage' | transloco }}</a>
   </div>
 </div>

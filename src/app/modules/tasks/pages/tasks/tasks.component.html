@@ -36,12 +36,14 @@
     </div>
 
     <div *ngSwitchCase="RequestStatus.Error" class="col-auto">
-      <p class="error-message">Something went wrong</p>
+      <p class="error-message">{{ 'shared.somethingWentWrong' | transloco }}</p>
     </div>
 
     <ng-container *ngSwitchDefault>
       <div *ngIf="!state.allTasksFetched" class="col-sm-auto">
-        <button class="button" (click)="tasksFacade.fetchTasks()">Load more</button>
+        <button class="button" (click)="tasksFacade.fetchTasks()">
+          {{ 'shared.loadMore' | transloco }}
+        </button>
       </div>
     </ng-container>
   </div>

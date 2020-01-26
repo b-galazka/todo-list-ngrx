@@ -7,8 +7,48 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+
+    <style>
+      @keyframes spin-around {
+        from {
+          transform: rotate(0deg);
+        }
+
+        to {
+          transform: rotate(359deg);
+        }
+      }
+
+      .fullscreen-loader {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #003862;
+        z-index: 1000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .fullscreen-loader::after {
+        content: '';
+        width: 70px;
+        height: 70px;
+        display: block;
+        border-radius: 50%;
+        border-top: 3px solid #fff;
+        animation-name: spin-around;
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+      }
+    </style>
   </head>
   <body>
-    <app-root></app-root>
+    <app-root>
+      <div class="fullscreen-loader"></div>
+    </app-root>
   </body>
 </html>

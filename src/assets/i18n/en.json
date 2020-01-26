@@ -1,0 +1,18 @@
+{
+  "notFound": {
+    "404": "404",
+    "pageDoesNotExist": "This page does not exist.",
+    "returnToHomepage": "Return to homepage"
+  },
+  "tasks": {
+    "goShopping": "Go shopping",
+    "name": "Name",
+    "description": "Description",
+    "buySomeMilk": "Buy some milk",
+    "createNewTask": "Create new task"
+  },
+  "shared": {
+    "somethingWentWrong": "Something went wrong",
+    "loadMore": "Load more"
+  }
+}
